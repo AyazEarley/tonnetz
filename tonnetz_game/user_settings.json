@@ -21,7 +21,7 @@
   "P1SOUND": "celeste",
   "P2SOUND": "celeste",
   "P1MODE": "player",
-  "P2MODE": "player",
+  "P2MODE": "AI",
   "PING_VOLUME": 1.5,
   "MUSIC_VOLUME": 0.2,
   "STARTING_POSITIONS": "balanced",

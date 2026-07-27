@@ -61,6 +61,9 @@ class Game:
         P1done = False
         P2done = False
 
+        self.ai_delay = 0.0
+        self.AI_MOVE_DELAY = 0.6
+
 
         if settings.STARTING_POSITIONS == "balanced":
             Fs1.capture(PLAYER_2, playPing=False)
@@ -95,6 +98,11 @@ class Game:
         if event.type != pygame.MOUSEBUTTONDOWN or event.button != 1:
             return
 
+        if TURN == PLAYER_1 and settings.P1MODE == "AI":
+            return
+        elif TURN == PLAYER_2 and settings.P2MODE == "AI":
+            return
+        
         available = get_available_nodes(TURN)
         
         for node in self.nodes:
@@ -121,6 +129,7 @@ class Game:
                 node.pulseTime = 0
 
         available = get_available_nodes(TURN)
+
         if len(available) == 0:
             if TURN == PLAYER_1:
                 P1done = True
@@ -133,15 +142,30 @@ class Game:
 
                 if p1_score > p2_score:
                     self.winner = 1
-                elif p2_score >= p1_score:
+                else:
                     self.winner = 2
 
                 self.p1_score = p1_score
                 self.p2_score = p2_score
                 self.next_state = "gameover"
-                return 
+                return
 
             TURN = PLAYER_2 if TURN == PLAYER_1 else PLAYER_1
+            self.ai_delay = 0.0
+            return
+
+        current_mode = settings.P1MODE if TURN == PLAYER_1 else settings.P2MODE
+        if current_mode != "AI":
+            return
+
+        self.ai_delay += dt
+        if self.ai_delay < self.AI_MOVE_DELAY:
+            return
+
+        self.ai_delay = 0.0
+        choice = random.choice(available)
+        choice.capture(TURN)
+        TURN = PLAYER_2 if TURN == PLAYER_1 else PLAYER_1   
 
 
     def draw(self):
