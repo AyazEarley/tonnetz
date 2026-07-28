@@ -4,6 +4,7 @@ import settings
 from node import *
 import os
 import random
+from treeSearch import *
 
 
 CENTERX = SCREEN_WIDTH / 2
@@ -62,7 +63,7 @@ class Game:
         P2done = False
 
         self.ai_delay = 0.0
-        self.AI_MOVE_DELAY = 0.6
+        self.AI_MOVE_DELAY = 1
 
 
         if settings.STARTING_POSITIONS == "balanced":
@@ -163,7 +164,8 @@ class Game:
             return
 
         self.ai_delay = 0.0
-        choice = random.choice(available)
+        choice = getBestMove(TURN)
+        
         choice.capture(TURN)
         TURN = PLAYER_2 if TURN == PLAYER_1 else PLAYER_1   
 
