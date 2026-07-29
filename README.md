@@ -4,7 +4,7 @@
 
 
 ## About
-Tonnetz is a board game inspired by my background in Music Theory. Players take turns capturing nodes on a pitch lattice called the Tonnetz, in an attempt to form harmonies and earn points. No knowledge of music is required to play. It was a joy to write the soundtrack
+Tonnetz is a board game inspired by my background in Music Theory. Players take turns capturing nodes on a pitch lattice called the Tonnetz, in an attempt to form harmonies and earn points. No knowledge of music is required to play. It was a joy to write the soundtrack :)
 
 ## Features
 - Offline Multiplayer
