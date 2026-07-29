@@ -18,7 +18,7 @@ def stateKey(ownedBy):
     return tuple(ownedBy[n] for n in ALL_NODES_ORDERED)
 
 
-def getBestMove(TURN, depth=8):
+def getBestMove(TURN, depth=12):
     ownedBy = {}
     for node in ALL_NODES:
         ownedBy[node] = node.owner
@@ -29,11 +29,66 @@ def getBestMove(TURN, depth=8):
     options = getAvailableMovesSim(ownedBy, TURN)
     nextTurn = PLAYER_1 if TURN == PLAYER_2 else PLAYER_2
 
+    maxDiff = 0
+    savedOption = None
+    for option in options:  # if the move results in a gain of 3+ instantly take it
+        _, newp1count, newp2count = simCapture(ownedBy, p1Count, p2Count, option, TURN)
+        if TURN == 1:
+            hypotheticalScore = newp1count - newp2count
+            score = p1Count - p2Count
+        else:
+            hypotheticalScore = newp2count - newp1count
+            score = p2Count - p1Count
+        myGain = hypotheticalScore - score
+
+        opponent = 2 if TURN == 1 else 1
+        _, oppNewP1, oppNewP2 = simCapture(ownedBy, p1Count, p2Count, option, opponent)
+        if opponent == 1:
+            denial = oppNewP1 - p1Count
+        else:
+            denial = oppNewP2 - p2Count
+
+        change = myGain + denial
+        if change > maxDiff:
+            savedOption = option
+            maxDiff = change
+        if change > 3:
+            return option
+        
+
+
+    
+    if len(P1_NODES) + len(P2_NODES) < 10: #After early game, stop prioritizing center
+        centerX = settings.SCREEN_WIDTH / 2
+        centerY = settings.SCREEN_HEIGHT / 2
+
+        bestDist = float('inf')
+        choicesCenter = []
+
+        for option in options:
+            x, y = option.pos
+            dist = (x - centerX) ** 2 + (y - centerY) ** 2  # squared distance - avoids an unnecessary sqrt
+
+            if dist < bestDist:
+                bestDist = dist
+                choicesCenter = [option]
+            elif dist == bestDist:
+                choicesCenter.append(option)
+
+        return random.choice(choicesCenter)
+
+
+       
+    nodesLeft = 37 - (len(P1_NODES) + len(P2_NODES))
+    if nodesLeft > 10:
+        if savedOption != None:
+            return savedOption
+        
+
     bestMoves = []
     bestScore = -float('inf')
     alpha = -float('inf')
     beta = float('inf')
-
     for node in options:
         newOwnedBy, newP1, newP2 = simCapture(ownedBy, p1Count, p2Count, node, TURN)
         value = recursiveGetBest(newOwnedBy, newP1, newP2, nextTurn, depth - 1, TURN, alpha, beta)
