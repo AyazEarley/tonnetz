@@ -9,7 +9,7 @@ Tonnetz is a board game inspired by my background in Music Theory. Players take 
 ## Features
 - Offline Multiplayer
 - Singleplayer vs AI
-  -AI uses a combination of depth limited Alpha-Beta pruning tree search, as well as a custom algorithm I built for the game
+  - AI uses a combination of depth limited Alpha-Beta pruning tree search, as well as a custom algorithm I built for the game
 - Multiple board setups for more replay value
 - Customizable player colors
 - Options to customize ping sound effects
