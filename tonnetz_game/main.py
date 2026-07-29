@@ -21,7 +21,7 @@ clock = pygame.time.Clock()
 current_state = Menu(screen)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-pygame.mixer.music.load(os.path.join(BASE_DIR, "assets", "music", "AmbientNormalized.wav"))
+pygame.mixer.music.load(os.path.join(BASE_DIR, "assets", "music", "AmbientNormalized.mp3"))
 pygame.mixer.music.set_volume(MUSIC_VOLUME)
 pygame.mixer.music.play(loops=-1)
 
