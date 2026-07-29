@@ -15,8 +15,8 @@ Tonnetz is a board game inspired by my background in Music Theory. Players take 
 - Options to customize ping sound effects
 
 ## Screenshots
-![Screenshot 1](assets/images/HomeScreen.png)
-![Screenshot 2](assets/images/gameplay.png)
+![Screenshot 1](tonnetz_game/assets/images/HomeScreen.png)
+![Screenshot 2](tonnetz_game/assets/images/gameplay.png)
 
 ## Download / Play
 Considering releasing it to steam for 1$, depends where things go the next few weeks.
