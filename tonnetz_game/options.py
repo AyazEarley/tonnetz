@@ -1,9 +1,90 @@
 import pygame
 import settings
+from node import SOUND_SETS
 
 def lerp_color(color_a, color_b, t):
     return tuple(a + (b - a) * t for a, b in zip(color_a, color_b))
 FADE_SPEED = 8  # progress units per second
+
+class Slider:
+    def __init__(self, pos, length, color, minVal, maxVal, startingValue, text):
+        self.position = pos
+        self.length = length
+        self.height = 5
+        self.color = color
+
+        self.minVal = minVal
+        self.maxVal = maxVal
+        self.startingValue = startingValue
+
+        self.text = text
+        
+        self.dragging = False
+
+        circleX = self.position[0] - (self.length // 2) + (self.length * startingValue)
+
+        self.circlePos = [circleX ,  self.position[1]]
+
+        self.scoreFont = pygame.font.SysFont("corbel", 24)
+
+    def draw(self, screen):
+        pygame.draw.rect(
+            screen, (180, 180, 180),
+            (self.position[0] - (self.length // 2), self.position[1] - (self.height // 2), self.length, self.height),
+            border_radius=3
+        )
+        pygame.draw.circle(
+            screen, (180, 180, 180),
+            (self.circlePos[0], self.circlePos[1]),
+            radius=10
+        )
+
+        # Label on the left of the track
+        labelSurface = self.scoreFont.render(self.text, True, (255, 255, 255))
+        labelRect = labelSurface.get_rect(
+            midright=(self.position[0] - (self.length // 2) - 15, self.position[1])
+        )
+        screen.blit(labelSurface, labelRect)
+
+        # Live percentage on the right of the track
+        percent = int(self.getValue() * 100)
+        percentSurface = self.scoreFont.render(f"{percent}%", True, (255, 255, 255))
+        percentRect = percentSurface.get_rect(
+            midleft=(self.position[0] + (self.length // 2) + 15, self.position[1])
+        )
+        screen.blit(percentSurface, percentRect)
+
+    def handle_click(self, mousePos):
+        circle_x, circle_y = self.circlePos
+        dx = mousePos[0] - circle_x
+        dy = mousePos[1] - circle_y
+        if (dx * dx + dy * dy) ** 0.5 <= 10:
+            self.dragging = True
+
+    def handle_drag(self, mousePos):
+
+        if not self.dragging:
+            return
+
+        left = self.position[0] - (self.length // 2)
+        right = self.position[0] + (self.length // 2)
+
+        x = mousePos[0]
+        x = max(left, min(x, right))
+
+        self.circlePos[0] = x
+
+    def handle_unclick(self):
+        self.dragging = False
+
+    def getValue(self):
+        left = self.position[0] - (self.length // 2)
+        distance = self.circlePos[0] - left
+
+        proportion = distance / self.length
+
+        valRange = self.maxVal - self.minVal
+        return (valRange * proportion) + self.minVal
 
 
 class Button:
@@ -59,8 +140,8 @@ class Options:
         width = screen.get_width()
 
         self.titleFont = pygame.font.SysFont("corbel", 84)
-        self.scoreFont = pygame.font.SysFont("corbel", 36)
-        self.buttonFont = pygame.font.SysFont("corbel", 48)
+        self.scoreFont = pygame.font.SysFont("corbel", 24)
+        self.buttonFont = pygame.font.SysFont("corbel", 36) 
 
         NORMAL = (255, 255, 255)
 
@@ -79,24 +160,52 @@ class Options:
             p2ColorText = "cyan"
 
         self.buttons = [
-            Button(f"P1 Mode: {settings.P1MODE}", self.buttonFont, (width // 2, 150), NORMAL, settings.P1COLOR, "p1changeMode"),
-            Button(f"P1 Color: {p1ColorText}", self.buttonFont, (width // 2, 200), NORMAL, settings.P1COLOR, "p1changeColor"),
+            Button(f"P1 Mode: {settings.P1MODE}", self.buttonFont, (width // 2, 140), NORMAL, settings.P1COLOR, "p1changeMode"),
+            Button(f"P1 Color: {p1ColorText}", self.buttonFont, (width // 2, 180), NORMAL, settings.P1COLOR, "p1changeColor"),
 
-            Button(f"P2 Mode: {settings.P2MODE}", self.buttonFont, (width // 2, 275), NORMAL, settings.P2COLOR, "p2changeMode"),
-            Button(f"P2 Color: {p2ColorText}", self.buttonFont, (width // 2, 325), NORMAL, settings.P2COLOR, "p2changeColor"),
+            Button(f"P2 Mode: {settings.P2MODE}", self.buttonFont, (width // 2, 230), NORMAL, settings.P2COLOR, "p2changeMode"),
+            Button(f"P2 Color: {p2ColorText}", self.buttonFont, (width // 2, 270), NORMAL, settings.P2COLOR, "p2changeColor"),
 
-            Button(f"Starting Spots: {settings.STARTING_POSITIONS}", self.buttonFont, (width // 2, 400), NORMAL, settings.COLOR3, "changeStart"),
-            Button(f"Ping Sound: {settings.P1SOUND}", self.buttonFont, (width // 2, 450), NORMAL, settings.COLOR3, "changePing"),
+            Button(f"Starting Spots: {settings.STARTING_POSITIONS}", self.buttonFont, (width // 2, 320), NORMAL, settings.COLOR3, "changeStart"),
+            Button(f"Ping Sound: {settings.P1SOUND}", self.buttonFont, (width // 2, 360), NORMAL, settings.COLOR3, "changePing"),
+
+            
 
             Button("Back to Menu", self.buttonFont, (width // 2, 525), NORMAL, (100, 100, 100), "menu"),
             
         ]
         self.button_by_action = {b.action: b for b in self.buttons}
 
+        length = 200
+        self.slider = Slider((width // 2, 420), length, settings.COLOR3, 0, 1, settings.MUSIC_VOLUME, "Music:")
+        self.slider2 = Slider((width // 2, 460), length, settings.COLOR3, 0, 1, settings.PING_VOLUME, "SFX:")
+
     def handle_event(self, event):
         for button in self.buttons:
             if button.is_clicked(event):
                 self.handle_click(button)
+
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+            self.slider.handle_click(event.pos)
+            self.slider2.handle_click(event.pos)
+        elif event.type == pygame.MOUSEMOTION:
+            self.slider.handle_drag(event.pos)
+            self.slider2.handle_drag(event.pos)
+            if self.slider.dragging:
+                settings.MUSIC_VOLUME = self.slider.getValue()
+                pygame.mixer.music.set_volume(settings.MUSIC_VOLUME)
+
+            if self.slider2.dragging:
+                settings.PING_VOLUME = self.slider2.getValue()
+                              
+        elif event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+            self.slider.handle_unclick()
+            self.slider2.handle_unclick()
+            settings.save_settings()
+            for sound_dict in SOUND_SETS.values():
+                for ping in sound_dict.values():
+                    ping.set_volume(settings.PING_VOLUME)
+            
 
     def handle_click(self, button):
         if button.action == "p1changeMode":
@@ -178,3 +287,8 @@ class Options:
 
         for button in self.buttons:
             button.draw(self.screen)
+
+        self.slider.draw(self.screen)
+        self.slider2.draw(self.screen)
+
+        
