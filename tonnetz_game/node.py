@@ -77,7 +77,7 @@ class Node:
     def __init__(self, name, x, y, owner=0):
         self.name = name
         self.pos = (x, y)
-        self.owner = 0
+        self.owner = owner
         self.color = (255, 255, 255)
         self.pulseTime = 0.0
 

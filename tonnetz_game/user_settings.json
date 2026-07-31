@@ -4,13 +4,13 @@
   "PLAYER_1": 1,
   "PLAYER_2": 2,
   "P1COLOR": [
-    255,
     0,
+    255,
     255
   ],
   "P2COLOR": [
-    0,
     255,
+    0,
     255
   ],
   "COLOR3": [
@@ -18,13 +18,13 @@
     255,
     0
   ],
-  "P1SOUND": "crotales",
+  "P1SOUND": "celeste",
   "P2SOUND": "celeste",
   "P1MODE": "player",
-  "P2MODE": "AI",
+  "P2MODE": "player",
   "PING_VOLUME": 1.0,
-  "MUSIC_VOLUME": 0.065,
+  "MUSIC_VOLUME": 0.1,
   "STARTING_POSITIONS": "balanced",
   "STARTING_PLAYER": 1,
-  "VERSION": "Beta 1.2"
+  "VERSION": "Beta 1.3"
 }

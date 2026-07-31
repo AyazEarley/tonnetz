@@ -137,5 +137,116 @@ for event in midi.harpEvents:
     harpMenuPulses.append([harpPing[count % len(harpPing)],event.start, event.end - event.start, P2COLOR])
     count += 1
 
+Dbb5 = Node("Dbb", CENTERX - (NODE_SPACING * 5), CENTERY - (ROW_HEIGHT * 2), owner=3)
+
+Bbb5 = Node("Bbb", CENTERX - (NODE_SPACING * 5) - (NODE_SPACING / 2), CENTERY - ROW_HEIGHT, owner=3)
+Fb5 = Node("Fb", CENTERX - (NODE_SPACING * 4) - (NODE_SPACING / 2), CENTERY - ROW_HEIGHT, owner=3)
+
+Db5 = Node("Db", CENTERX - (NODE_SPACING * 5), CENTERY, owner=3)
+Ab5 = Node("Ab", CENTERX - (NODE_SPACING * 4), CENTERY, owner=3)
+
+Bb5 = Node("Bb", CENTERX + (NODE_SPACING / 2) - (NODE_SPACING * 6), CENTERY + ROW_HEIGHT, owner=3)
+F5 = Node("F", CENTERX + (NODE_SPACING / 2) - (NODE_SPACING * 5), CENTERY + ROW_HEIGHT, owner=3)
+C5 = Node("C", CENTERX + (NODE_SPACING / 2) - (NODE_SPACING * 4), CENTERY + ROW_HEIGHT, owner=3)
+
+D5 = Node("D", CENTERX - (NODE_SPACING * 5), CENTERY + (ROW_HEIGHT * 2), owner=3)
+A5 = Node("A", CENTERX - (NODE_SPACING * 4), CENTERY + (ROW_HEIGHT * 2), owner=3)
+E5 = Node("E", CENTERX - (NODE_SPACING * 3), CENTERY + (ROW_HEIGHT * 2), owner=3)
+
+#
+Gs5 = Node("G#", CENTERX - (NODE_SPACING * 2.5), CENTERY + (ROW_HEIGHT * 3), owner=3)
+Cs5 = Node("C#", CENTERX - (NODE_SPACING * 3.5), CENTERY + (ROW_HEIGHT * 3), owner=3)
+Fs5 = Node("F#", CENTERX - (NODE_SPACING * 4.5), CENTERY + (ROW_HEIGHT * 3), owner=3)
+B5 = Node("B", CENTERX - (NODE_SPACING * 5.5), CENTERY + (ROW_HEIGHT * 3), owner=3)
+
+Bs5 = Node("B#", CENTERX - (NODE_SPACING * 2), CENTERY + (ROW_HEIGHT * 4), owner=3)
+Es5 = Node("E#", CENTERX - (NODE_SPACING * 3), CENTERY + (ROW_HEIGHT * 4), owner=3)
+As5 = Node("A#", CENTERX - (NODE_SPACING * 4), CENTERY + (ROW_HEIGHT * 4), owner=3)
+Ds5 = Node("D#", CENTERX - (NODE_SPACING * 5), CENTERY + (ROW_HEIGHT * 4), owner=3)
+
+Dss5 = Node("Dx", CENTERX - (NODE_SPACING * 1.5), CENTERY + (ROW_HEIGHT * 5), owner=3)
+Gss5 = Node("Gx", CENTERX - (NODE_SPACING * 2.5), CENTERY + (ROW_HEIGHT * 5), owner=3)
+Css5 = Node("Cx", CENTERX - (NODE_SPACING * 3.5), CENTERY + (ROW_HEIGHT * 5), owner=3)
+Fss5 = Node("Fx", CENTERX - (NODE_SPACING * 4.5), CENTERY + (ROW_HEIGHT * 5), owner=3)
+
+Bs6 = Node("B#", CENTERX + (NODE_SPACING * 5), CENTERY + (ROW_HEIGHT * 2), owner=3)
+Gs6 = Node("G#", CENTERX + (NODE_SPACING / 2) + (NODE_SPACING * 4), CENTERY + ROW_HEIGHT, owner=3)
+Ds6 = Node("D#", CENTERX + (NODE_SPACING / 2) + (NODE_SPACING * 5), CENTERY + ROW_HEIGHT, owner=3)
+
+E6 = Node("E", CENTERX + (NODE_SPACING * 4), CENTERY, owner=3)
+B6 = Node("B", CENTERX + (NODE_SPACING * 5), CENTERY, owner=3)
+
+C6 = Node("C", CENTERX + (NODE_SPACING * 4) - (NODE_SPACING / 2), CENTERY - ROW_HEIGHT, owner=3)
+G6 = Node("G", CENTERX + (NODE_SPACING * 5) - (NODE_SPACING / 2), CENTERY - ROW_HEIGHT, owner=3)
+D6 = Node("D", CENTERX + (NODE_SPACING * 6) - (NODE_SPACING / 2), CENTERY - ROW_HEIGHT, owner=3)
+
+Ab6 = Node("Ab", CENTERX + (NODE_SPACING * 3), CENTERY - (ROW_HEIGHT * 2), owner=3)
+Eb6 = Node("Eb", CENTERX + (NODE_SPACING * 4), CENTERY - (ROW_HEIGHT * 2), owner=3)
+Bb6 = Node("Bb", CENTERX + (NODE_SPACING * 5), CENTERY - (ROW_HEIGHT * 2), owner=3)
+
+Fb6 = Node("Fb", CENTERX + (NODE_SPACING * 2.5), CENTERY - (ROW_HEIGHT * 3), owner=3)
+Cb6 = Node("Cb", CENTERX + (NODE_SPACING * 3.5), CENTERY - (ROW_HEIGHT * 3), owner=3)
+Gb6 = Node("Gb", CENTERX + (NODE_SPACING * 4.5), CENTERY - (ROW_HEIGHT * 3), owner=3)
+Db6 = Node("Fb", CENTERX + (NODE_SPACING * 5.5), CENTERY - (ROW_HEIGHT * 3), owner=3)
+
+Dbb6 = Node("Dbb", CENTERX + (NODE_SPACING * 2), CENTERY - (ROW_HEIGHT * 4), owner=3)
+Abb6 = Node("Abb", CENTERX + (NODE_SPACING * 3), CENTERY - (ROW_HEIGHT * 4), owner=3)
+Ebb6 = Node("Ebb", CENTERX + (NODE_SPACING * 4), CENTERY - (ROW_HEIGHT * 4), owner=3)
+Bbb6 = Node("Bbb", CENTERX + (NODE_SPACING * 5), CENTERY - (ROW_HEIGHT * 4), owner=3)
+
+DECONODES3 = [
+    Gs5, Cs5, Fs5, B5, E5, A5, D5, C5, F5, Bb5, Ab5, Db5, Bbb5, Fb5, Bs5, Es5, As5, Ds5, Dss5, Gss5, Css5, Fss5, Dbb5,
+    Bs6, Gs6, Ds6, E6, B6, C6, G6, D6, Ab6, Eb6, Bb6, Fb6, Cb6, Gb6, Db6, Dbb6, Abb6, Ebb6, Bbb6
+              ]
+
 for node in DECONODES1 + DECONODES2:
     node.color = (100,100,100)
+
+for node in DECONODES3:
+    node.color = (50,50,50)
+
+ADJACENCY5 = {
+    Dss5 : [Bs5],
+    Gss5 : [Es5, Bs5],
+    Css5 : [As5, Es5],
+    Fss5 : [As5, Ds5],
+
+    Bs5 : [Gs5, Es5],
+    Es5 : [Gs5, Bs5, Cs5, As5],
+    As5 : [Cs5, Fs5, Ds5],
+
+    Gs5 : [Cs5, E5,],
+    Cs5: [E5, A5, Fs5],
+    Fs5 : [Ds5, B5, D5, A5],
+
+    E5 : [C5, A5,],
+    A5 : [C5, F5],
+    D5 : [F5, A5],
+
+    C5: [F5, Ab5],
+    F5 : [Bb5, Ab5, Db5],
+
+    Ab5 : [Fb5, Db5],
+    Fb5 : [Bbb5, Dbb5, Db5],
+
+    Bs6 : [Gs6],
+    Gs6 : [Ds6, E6, B6],
+    E6 : [B6, C6, G6],
+    B6 : [G6],
+    C6 : [Ab6 , Eb6, G6],
+    G6 : [Eb6, Bb6, D6],
+
+    Ab6 : [Fb6, Cb6, Eb6],
+    Eb6 : [Cb6, Gb6, Bb6],
+    Bb6 : [Gb6],
+
+    Fb6 : [Dbb6, Abb6, Cb6],
+    Cb6 : [Abb6, Ebb6, Gb6],
+    Gb6 : [Db6, Ebb6, Bbb6],
+
+    Dbb6 : [Abb6,],
+    Abb6 : [Ebb6],
+    Ebb6 : [Bbb6]
+
+    
+}

@@ -5,6 +5,7 @@ from node import *
 import os
 import random
 from treeSearch import *
+import decoNodes
 
 
 CENTERX = SCREEN_WIDTH / 2
@@ -205,6 +206,40 @@ class Game:
             
             if node.pulseTime > 0:
                 t = node.pulseTime / PULSE_TIME  # 1.0 = just triggered, 0.0 = faded out
+                color = lerp_color(node.color, COLOR3, t)
+            elif node.owner != 0:
+                color = node.color
+            elif node in available:
+                color = highlight_color
+            else:
+                color = node.color
+
+            label = self.nodeFont.render(node.name, True, color)
+            label_rect = label.get_rect(center=(x, y - 20))
+            self.screen.blit(label, label_rect)
+
+        for node in decoNodes.DECONODES3:
+            if node.owner == 0:
+                continue
+            node_pos = (node.pos[0], node.pos[1] - 20)
+            for neighbor in decoNodes.ADJACENCY5.get(node, []):
+                if neighbor.owner == node.owner:
+                    neighbor_pos = (neighbor.pos[0], neighbor.pos[1] - 20)
+                    start, end = shrink_line(node_pos, neighbor_pos, LINE_MARGIN)
+                    
+                    
+                    if neighbor.pulseTime > 0 and node.pulseTime > 0:
+                        t = node.pulseTime / PULSE_TIME
+                        lineColor = lerp_color(node.color, COLOR3, t)
+                    else:
+                        lineColor = node.color
+                    pygame.draw.line(self.screen, lineColor, start, end, 2)
+
+        for node in decoNodes.DECONODES3:
+            x, y = node.pos
+            
+            if node.pulseTime > 0:
+                t = node.pulseTime / PULSE_TIME
                 color = lerp_color(node.color, COLOR3, t)
             elif node.owner != 0:
                 color = node.color
