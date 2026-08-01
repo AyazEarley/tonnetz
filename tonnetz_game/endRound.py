@@ -38,6 +38,8 @@ class EndRound:
         if button_text == "Play next round":
             self.next_state = "game"
         elif button_text == "Back to Menu":
+            game.ROUND = 1
+            game.round1P1Score, game.round1P2Score = 0, 0
             self.next_state = "menu"
         elif button_text == "Quit to desktop":
             pygame.quit()
