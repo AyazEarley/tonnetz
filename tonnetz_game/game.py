@@ -90,7 +90,8 @@ class Game:
         self.next_state = None
         self.nodeFont = pygame.font.SysFont("corbel", 24)
         self.nodes = ALL_NODES
-        self.turnFont = pygame.font.SysFont("corbel", 32)
+        self.turnFont = pygame.font.SysFont("corbel", 48)
+        self.titleFont = pygame.font.SysFont("corbel", 84)
 
 
         
@@ -259,19 +260,25 @@ class Game:
             turn_text = "Player 2's Turn"
             turn_color = P2COLOR
 
+        '''
         turn_surface = self.turnFont.render(turn_text, True, turn_color)
-        turn_rect = turn_surface.get_rect(center=(200, 50))
+        turn_rect = turn_surface.get_rect(center=(500, SCREEN_HEIGHT - 50))
         self.screen.blit(turn_surface, turn_rect)
-
+        '''
 
         p1_score = len(P1_TRIADS)
         p1_score_surface = self.turnFont.render("Player 1: " + str(p1_score), True, P1COLOR)
-        p1_score_rect = turn_surface.get_rect(center=(SCREEN_WIDTH - 200, SCREEN_HEIGHT - 50))
+        p1_score_rect = p1_score_surface.get_rect(center=(SCREEN_WIDTH - 250, SCREEN_HEIGHT - 50))
         self.screen.blit(p1_score_surface, p1_score_rect)
 
         p2_score = len(P2_TRIADS)
         p2_score_surface = self.turnFont.render("Player 2: " + str(p2_score), True, P2COLOR)
-        p2_score_rect = turn_surface.get_rect(center=(SCREEN_WIDTH - 200, SCREEN_HEIGHT - 80))
+        p2_score_rect = p2_score_surface.get_rect(center=(SCREEN_WIDTH - 247, SCREEN_HEIGHT - 100))
         self.screen.blit(p2_score_surface, p2_score_rect)
+
+
+        round_surface = self.titleFont.render("Round 1", True, (255,255,255))
+        round_rect = round_surface.get_rect(center=(225, 60))
+        self.screen.blit(round_surface, round_rect)
 
         
