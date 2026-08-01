@@ -268,12 +268,12 @@ class Game:
 
         p1_score = len(P1_TRIADS)
         p1_score_surface = self.turnFont.render("Player 1: " + str(p1_score), True, P1COLOR)
-        p1_score_rect = p1_score_surface.get_rect(center=(SCREEN_WIDTH - 250, SCREEN_HEIGHT - 50))
+        p1_score_rect = p1_score_surface.get_rect(topleft=(SCREEN_WIDTH - 350, SCREEN_HEIGHT - 80))
         self.screen.blit(p1_score_surface, p1_score_rect)
 
         p2_score = len(P2_TRIADS)
         p2_score_surface = self.turnFont.render("Player 2: " + str(p2_score), True, P2COLOR)
-        p2_score_rect = p2_score_surface.get_rect(center=(SCREEN_WIDTH - 247, SCREEN_HEIGHT - 100))
+        p2_score_rect = p2_score_surface.get_rect(topleft=(SCREEN_WIDTH - 350, SCREEN_HEIGHT - 130))
         self.screen.blit(p2_score_surface, p2_score_rect)
 
 

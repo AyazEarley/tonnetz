@@ -23,7 +23,7 @@
   "P1MODE": "player",
   "P2MODE": "player",
   "PING_VOLUME": 1.0,
-  "MUSIC_VOLUME": 0.1,
+  "MUSIC_VOLUME": 0.12,
   "STARTING_POSITIONS": "balanced",
   "STARTING_PLAYER": 1,
   "VERSION": "Beta 1.4"
