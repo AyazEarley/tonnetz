@@ -1,6 +1,7 @@
 import pygame
 from menu import Menu
 from gameOver import GameOver
+from endRound import EndRound
 from game import Game
 from howToPlay import HowToPlay
 from settings import *
@@ -45,6 +46,8 @@ while running:
         current_state = Game(screen)
     elif current_state.next_state == "options":
             current_state = Options(screen)
+    elif current_state.next_state == "endRound":
+        current_state = EndRound(screen, current_state.p1_score, current_state.p2_score)
     elif current_state.next_state == "gameover":
         current_state = GameOver(screen, current_state.winner, current_state.p1_score, current_state.p2_score)
     elif current_state.next_state == "menu":

@@ -24,6 +24,10 @@ TURN = PLAYER_1
 P1done = False
 P2done = False
 
+ROUND = 1
+round1P1Score = 0
+round1P2Score = 0
+
 def lerp_color(color_a, color_b, t):
     return tuple(a + (b - a) * t for a, b in zip(color_a, color_b))
 
@@ -57,9 +61,14 @@ def shrink_line(pos_a, pos_b, margin):
 
 class Game:
     def __init__(self, screen):
-        global TURN, P1done, P2done
+        global TURN, P1done, P2done, round1P1Score, round1P2Score
         reset_game()
-        TURN = PLAYER_1
+        if ROUND == 2:
+            TURN == PLAYER_2
+        else:
+            TURN = PLAYER_1
+            round1P1Score = 0
+            round1P2Score = 0
         P1done = False
         P2done = False
 
@@ -140,9 +149,15 @@ class Game:
                 P2done = True
 
             if P1done and P2done:
-                p1_score = len(P1_TRIADS)
-                p2_score = len(P2_TRIADS)
+                p1_score = len(P1_TRIADS) + round1P1Score
+                p2_score = len(P2_TRIADS) + round1P2Score
 
+                if(ROUND == 1):
+                    self.p1_score = p1_score
+                    self.p2_score = p2_score
+                    self.next_state = "endRound"
+                    return
+                
                 if p1_score > p2_score:
                     self.winner = 1
                 else:
@@ -266,18 +281,18 @@ class Game:
         self.screen.blit(turn_surface, turn_rect)
         '''
 
-        p1_score = len(P1_TRIADS)
+        p1_score = len(P1_TRIADS) + round1P1Score
         p1_score_surface = self.turnFont.render("Player 1: " + str(p1_score), True, P1COLOR)
         p1_score_rect = p1_score_surface.get_rect(topleft=(SCREEN_WIDTH - 350, SCREEN_HEIGHT - 80))
         self.screen.blit(p1_score_surface, p1_score_rect)
 
-        p2_score = len(P2_TRIADS)
+        p2_score = len(P2_TRIADS) + round1P2Score
         p2_score_surface = self.turnFont.render("Player 2: " + str(p2_score), True, P2COLOR)
         p2_score_rect = p2_score_surface.get_rect(topleft=(SCREEN_WIDTH - 350, SCREEN_HEIGHT - 130))
         self.screen.blit(p2_score_surface, p2_score_rect)
 
 
-        round_surface = self.titleFont.render("Round 1", True, (255,255,255))
+        round_surface = self.titleFont.render(f"Round {ROUND}", True, (255,255,255))
         round_rect = round_surface.get_rect(center=(225, 60))
         self.screen.blit(round_surface, round_rect)
 

@@ -3,16 +3,17 @@ from menu import Button
 from settings import *
 import game
 
-class GameOver:
-    def __init__(self, screen, winner, p1_score, p2_score):
-        global ROUND, round1P2Score, round1P1Score
-        game.ROUND = 1
-        game.round1P2Score, game.round1P1Score = 0, 0
+class EndRound:
+    def __init__(self, screen, p1_score, p2_score):
+        global round1P2Score, round1P1Score, ROUND
         self.screen = screen
         self.next_state = None
-        self.winner = winner
         self.p1_score = p1_score
         self.p2_score = p2_score
+
+        game.ROUND = 2
+        game.round1P1Score = p1_score
+        game.round1P2Score = p2_score
 
         width = screen.get_width()
 
@@ -23,9 +24,9 @@ class GameOver:
         NORMAL = (255, 255, 255)
 
         self.buttons = [
-            Button("Play Again", self.buttonFont, (width // 2, 330), NORMAL, (0, 255, 255)),
+            Button("Play next round", self.buttonFont, (width // 2, 330), NORMAL, (0, 255, 255)),
             Button("Back to Menu", self.buttonFont, (width // 2, 400), NORMAL, (255, 0, 255)),
-            Button("Quit", self.buttonFont, (width // 2, 470), NORMAL, (100, 100, 100)),
+            Button("Quit to desktop", self.buttonFont, (width // 2, 470), NORMAL, (100, 100, 100)),
         ]
 
     def handle_event(self, event):
@@ -34,11 +35,11 @@ class GameOver:
                 self.handle_click(button.text)
 
     def handle_click(self, button_text):
-        if button_text == "Play Again":
+        if button_text == "Play next round":
             self.next_state = "game"
         elif button_text == "Back to Menu":
             self.next_state = "menu"
-        elif button_text == "Quit":
+        elif button_text == "Quit to desktop":
             pygame.quit()
             raise SystemExit
 
@@ -50,12 +51,9 @@ class GameOver:
     def draw(self):
         self.screen.fill((21, 21, 21))
 
-        title_text = f"Player {self.winner} won!"
-        if self.winner==1:
-            tColor = P1COLOR
-        else:
-            tColor=P2COLOR
-        titleSurface = self.titleFont.render(title_text, True, tColor)
+        title_text = f"Round 1 Complete!"
+
+        titleSurface = self.titleFont.render(title_text, True, (255, 255, 255))
         titleRect = titleSurface.get_rect(center=(self.screen.get_width() // 2, 150))
         self.screen.blit(titleSurface, titleRect)
 
