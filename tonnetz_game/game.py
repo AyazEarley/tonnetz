@@ -160,6 +160,8 @@ class Game:
                 
                 if p1_score > p2_score:
                     self.winner = 1
+                elif p1_score == p2_score:
+                    self.winner = 3
                 else:
                     self.winner = 2
 

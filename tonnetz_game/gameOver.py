@@ -51,10 +51,14 @@ class GameOver:
         self.screen.fill((21, 21, 21))
 
         title_text = f"Player {self.winner} won!"
+        if self.winner == 3:
+            title_text = f"It's a tie!"
         if self.winner==1:
             tColor = P1COLOR
-        else:
+        elif self.winner == 2:
             tColor=P2COLOR
+        else:
+            tColor = COLOR3
         titleSurface = self.titleFont.render(title_text, True, tColor)
         titleRect = titleSurface.get_rect(center=(self.screen.get_width() // 2, 150))
         self.screen.blit(titleSurface, titleRect)
