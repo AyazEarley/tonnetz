@@ -12,6 +12,7 @@ class EndRound:
         self.p2_score = p2_score
 
         game.ROUND = 2
+        game.TURN = PLAYER_2
         game.round1P1Score = p1_score
         game.round1P2Score = p2_score
 

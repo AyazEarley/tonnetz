@@ -61,10 +61,10 @@ def shrink_line(pos_a, pos_b, margin):
 
 class Game:
     def __init__(self, screen):
-        global TURN, P1done, P2done, round1P1Score, round1P2Score
         reset_game()
+        global TURN, P1done, P2done, round1P1Score, round1P2Score
         if ROUND == 2:
-            TURN == PLAYER_2
+            TURN = PLAYER_2
         else:
             TURN = PLAYER_1
             round1P1Score = 0

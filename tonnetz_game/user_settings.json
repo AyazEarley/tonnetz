@@ -4,19 +4,19 @@
   "PLAYER_1": 1,
   "PLAYER_2": 2,
   "P1COLOR": [
-    0,
     255,
-    255
+    255,
+    0
   ],
   "P2COLOR": [
-    255,
     0,
+    255,
     255
   ],
   "COLOR3": [
     255,
-    255,
-    0
+    0,
+    255
   ],
   "P1SOUND": "celeste",
   "P2SOUND": "celeste",
