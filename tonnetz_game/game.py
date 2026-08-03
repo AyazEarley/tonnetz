@@ -6,6 +6,7 @@ import os
 import random
 from treeSearch import *
 import decoNodes
+from background import create_tilted_gradient
 
 
 CENTERX = SCREEN_WIDTH / 2
@@ -102,8 +103,12 @@ class Game:
         self.turnFont = pygame.font.SysFont("corbel", 48)
         self.titleFont = pygame.font.SysFont("corbel", 84)
 
+        self.background = create_tilted_gradient(
+                    screen.get_width(), screen.get_height(),
+                    (18, 18, 24), (32, 2, 48),
+                    angle=60
+                )
 
-        
     def handle_event(self, event):
         global TURN
 
@@ -190,7 +195,7 @@ class Game:
 
 
     def draw(self):
-        self.screen.fill((21, 21, 21))
+        self.screen.blit(self.background, (0, 0))
 
         if TURN == PLAYER_1:
             available = get_available_nodes(PLAYER_1)

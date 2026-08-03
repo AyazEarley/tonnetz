@@ -3,6 +3,7 @@ import pygame
 from settings import *
 import decoNodes
 from decoNodes import harpMenuPulses, crotalesMenuPulses, celesteMenuPulses
+from background import create_tilted_gradient
 
 FADE_SPEED = 3
 PULSE_TIME = 3.5
@@ -129,6 +130,13 @@ class Menu:
 
         NORMAL = (255, 255, 255)
 
+
+        self.background = create_tilted_gradient(
+            screen.get_width(), screen.get_height(),
+            (18, 18, 24), (32, 2, 48),
+            angle=60
+        )
+
         self.buttons = [
             Button("Start Game", self.buttonFont, (width // 2, 240), NORMAL, (0, 255, 255)),
             Button("Options", self.buttonFont, (width // 2, 320), NORMAL, (255, 0, 255)),
@@ -191,7 +199,7 @@ class Menu:
         self.pulses = [p for p in self.pulses if not p.finished]
 
     def draw(self):
-        self.screen.fill((21, 21, 21))
+        self.screen.blit(self.background, (0, 0))
 
         titleSurface = self.titleFont.render("Tonnetz", True, (255, 255, 255))
         titleRect = titleSurface.get_rect(center=(self.screen.get_width() // 2, 130))

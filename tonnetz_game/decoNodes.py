@@ -199,11 +199,9 @@ DECONODES3 = [
     Bs6, Gs6, Ds6, E6, B6, C6, G6, D6, Ab6, Eb6, Bb6, Fb6, Cb6, Gb6, Db6, Dbb6, Abb6, Ebb6, Bbb6
               ]
 
-for node in DECONODES1 + DECONODES2:
+for node in DECONODES1 + DECONODES2 + DECONODES3:
     node.color = (100,100,100)
 
-for node in DECONODES3:
-    node.color = (50,50,50)
 
 ADJACENCY5 = {
     Dss5 : [Bs5],
